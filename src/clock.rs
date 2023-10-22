@@ -18,14 +18,20 @@ pub trait Clock: Sized {
 }
 
 #[cfg(feature = "std")]
-mod std_mod
-{
-    use lazy_static::lazy_static;
+mod std_mod {
     use super::*;
+    use lazy_static::lazy_static;
 
     /// A clock backed by `std::time::Instant::now()`.
     ///
     /// Only available with the `std` feature.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use uchrono::clock::{Clock, InstantClock};
+    /// InstantClock.now();
+    /// ```
     pub struct InstantClock;
 
     impl Clock for InstantClock {
@@ -42,6 +48,13 @@ mod std_mod
     /// A clock backed by `std::time::SystemTime::now()`.
     ///
     /// Only available with the `std` feature.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use uchrono::clock::{Clock, SystemClock};
+    /// SystemClock.now();
+    /// ```
     pub struct SystemClock;
 
     impl Clock for SystemClock {

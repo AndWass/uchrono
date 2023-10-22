@@ -6,8 +6,7 @@ use core::ops::{Add, AddAssign, Sub, SubAssign};
 ///
 /// Any over or underflow will cause a panic.
 #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug)]
-pub struct Duration
-{
+pub struct Duration {
     micros: i64,
 }
 
@@ -32,9 +31,7 @@ impl Duration {
     /// ```
     #[inline]
     pub const fn from_micros(micros: i64) -> Self {
-        Self {
-            micros
-        }
+        Self { micros }
     }
 
     /// Create a new [`Duration`] from milliseconds.
@@ -56,7 +53,11 @@ impl Duration {
     /// ```
     #[inline]
     pub fn from_millis(millis: i64) -> Self {
-        Self::from_micros(millis.checked_mul(1000).expect("Overflow converting from milliseconds to Duration"))
+        Self::from_micros(
+            millis
+                .checked_mul(1000)
+                .expect("Overflow converting from milliseconds to Duration"),
+        )
     }
 
     /// Create a new [`Duration`] from seconds.
@@ -78,7 +79,11 @@ impl Duration {
     /// ```
     #[inline]
     pub fn from_seconds(seconds: i64) -> Self {
-        Self::from_micros(seconds.checked_mul(1_000_000).expect("Overflow converting from seconds to Duration"))
+        Self::from_micros(
+            seconds
+                .checked_mul(1_000_000)
+                .expect("Overflow converting from seconds to Duration"),
+        )
     }
 
     /// Get the number of microseconds this Duration represents.
@@ -200,13 +205,13 @@ impl Duration {
 /// # Panics
 ///
 /// Panics when [`Duration::checked_add`] returns `None`.
-impl Add for Duration
-{
+impl Add for Duration {
     type Output = Self;
 
     #[inline]
     fn add(self, rhs: Self) -> Self::Output {
-        self.checked_add(rhs).expect("Overflow when adding durations")
+        self.checked_add(rhs)
+            .expect("Overflow when adding durations")
     }
 }
 
@@ -223,23 +228,24 @@ impl AddAssign for Duration {
 }
 
 /// Uses [`Duration::checked_sub`]
-/// 
+///
 /// # Panics
-/// 
+///
 /// Panics when [`Duration::checked_sub`] returns `None`
 impl Sub for Duration {
     type Output = Self;
 
     #[inline]
     fn sub(self, rhs: Self) -> Self::Output {
-        self.checked_sub(rhs).expect("Underflow when subtracting durations")
+        self.checked_sub(rhs)
+            .expect("Underflow when subtracting durations")
     }
 }
 
 /// Uses [`Sub::sub`]
-/// 
+///
 /// # Panics
-/// 
+///
 /// Panics when [`Sub::sub`] panics.
 impl SubAssign for Duration {
     #[inline]
@@ -249,8 +255,7 @@ impl SubAssign for Duration {
 }
 
 #[cfg(test)]
-mod tests
-{
+mod tests {
     use super::*;
 
     #[test]

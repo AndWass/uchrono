@@ -1,4 +1,4 @@
-//! A time point and duration library.
+//! A no_std compatible time point and duration library.
 //!
 //! # Duration
 //!
@@ -16,7 +16,7 @@
 //! # Features
 //!
 //!   * `std` - enabled by default.
-//! 
+//!
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
@@ -29,8 +29,7 @@ pub use duration::Duration;
 pub use timepoint::TimePoint;
 
 #[cfg(test)]
-mod tests
-{
+mod tests {
     use crate::Duration;
 
     #[test]

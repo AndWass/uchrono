@@ -1,16 +1,15 @@
+use crate::Duration;
 use core::marker::PhantomData;
 use core::ops::{Add, AddAssign, Sub, SubAssign};
-use crate::Duration;
 
 /// Represents a point in time of the associated `Clock`.
 ///
 /// TimePoint has generic type `Clock`, serving as a tag type. This ensures that
 /// time points from two different clocks cannot be interchanged by accident.
 #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Debug)]
-pub struct TimePoint<Clock>
-{
+pub struct TimePoint<Clock> {
     since_epoch: Duration,
-    _phantom: PhantomData<Clock>
+    _phantom: PhantomData<Clock>,
 }
 
 impl<Clock> TimePoint<Clock> {
@@ -26,7 +25,7 @@ impl<Clock> TimePoint<Clock> {
     pub const fn new(since_epoch: Duration) -> Self {
         Self {
             since_epoch,
-            _phantom: PhantomData
+            _phantom: PhantomData,
         }
     }
 
@@ -129,9 +128,8 @@ impl<Clock> SubAssign<Duration> for TimePoint<Clock> {
 }
 
 #[cfg(test)]
-mod tests
-{
-    use crate::{TimePoint, Duration};
+mod tests {
+    use crate::{Duration, TimePoint};
 
     #[test]
     #[should_panic]
